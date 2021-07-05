@@ -39,14 +39,14 @@ class game {
             for (let j = 0; j < N; j++) {
                 color = Math.floor(Math.random()*16777215 / 2 + 16777215 / 2).toString(16);
                 xx = j * WidthRectangle;
-                Data[i][j] = {xx, yy, color, alive : false, value: Math.floor(Math.random() * 50 + 5)};
+                Data[i][j] = {xx, yy, color, alive : false, value: Math.floor(Math.random() * 4 + 1)};
             }
         }
 
         for (let i = 0; i < M / 3; i++) {
             yy = i * HeightRectangle;
             for (let j = 0; j < N; j++) {
-                if (Math.random() < 0.5)
+                if (Math.random() < 0.2)
                     Data[i][j].alive = true;
             }
         }
@@ -71,23 +71,9 @@ class game {
 
     listenMouse() {
         document.addEventListener("mousedown", evt => {
-            if (start)
-                return;
-            XX = -1;
             var x = evt.x;
             var y = evt.y;
-            dx = x - XXX;
-            dy = y - YYY;
-            var range = Math.sqrt(dx * dx + dy * dy);
-            dx /= (range / (this.getWidth() / 10));
-            dy /= (range / (this.getWidth() / 10));
-            for (let i = 0; i < Nball; i++) {
-                this.b[i].dx = dx;
-                this.b[i].dy = dy;
-            }
-            start = true;
-            count2 = count + 1;
-            console.log(x, ' ', y);
+            this.solve(x, y);
         })
     }
 
@@ -95,6 +81,24 @@ class game {
         this.update();
         this.draw();
         setTimeout(() => this.loop(), 1);
+    }
+
+    solve(x, y) {
+        if (start)
+            return;
+        XX = -1;
+        dx = x - XXX;
+        dy = y - YYY;
+        var range = Math.sqrt(dx * dx + dy * dy);
+        dx /= (range / (this.getWidth() / 10));
+        dy /= (range / (this.getWidth() / 10));
+        for (let i = 0; i < Nball; i++) {
+            this.b[i].dx = dx;
+            this.b[i].dy = dy;
+        }
+        start = true;
+        count2 = count + 1;
+        console.log(x, ' ', y);
     }
 
     update() {
@@ -112,9 +116,31 @@ class game {
             this.b[i].update();
         if (this.checkFinish()) {
             index = 0;
+            if (XX == 0)
+                this.matrixDown();
             XX = -1;
             start = false;
         }
+    }
+
+    matrixDown() {
+        for (let i = M - 2; i > 0; i--)
+            for (let j = 0; j < N; j++) {
+                var a1 = Data[i][j].xx;
+                var a2 = Data[i][j].yy;
+                var a3 = Data[i - 1][j].color;
+                var a4 = Data[i - 1][j].alive;
+                var a5 = Data[i - 1][j].value;
+                Data[i][j] = {xx : a1, yy: a2, color: a3, alive: a4, value: a5};
+            }
+        for (let j = 0; j < N; j++) {
+            let color = Math.floor(Math.random()*16777215 / 2 + 16777215 / 2).toString(16);
+            let xx = j * WidthRectangle;
+            Data[0][j] = {xx, yy: 0, color, alive : false, value: Math.floor(Math.random() * 4 + 1)};
+            if (Math.random() < 0.3)
+                Data[0][j].alive = true;
+        }
+        console.log(Data[5]);
     }
 
     render() {
