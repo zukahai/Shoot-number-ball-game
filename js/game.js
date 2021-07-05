@@ -2,6 +2,9 @@ game_W = 0, game_H = 0;
 XXX = 0, YYY = 0;
 start = false;
 dx = 0, dy = 0;
+N = 10;
+index = 0;
+count = 0, count2 = 0;
 class game {
     constructor() {
         this.canvas = null;
@@ -15,7 +18,9 @@ class game {
         document.body.appendChild(this.canvas);
 
         this.render();
-        this.b = new ball(this);
+        this.b = [];
+        for (let i = 0; i < N; i++) 
+            this.b[i] = new ball(this);
         
         this.loop();
 
@@ -36,10 +41,14 @@ class game {
             dx = x - XXX;
             dy = y - YYY;
             var range = Math.sqrt(dx * dx + dy * dy);
-            dx /= (range / (this.getWidth() / 2));
-            dy /= (range / (this.getWidth() / 2));
-            this.b.dx = dx;
-            this.b.dy = dy;
+            dx /= (range / (this.getWidth() / 1.5));
+            dy /= (range / (this.getWidth() / 1.5));
+            for (let i = 0; i < N; i++) {
+                this.b[i].dx = dx;
+                this.b[i].dy = dy;
+            }
+            start = true;
+            count2 = count + 1;
             console.log(x, ' ', y);
         })
     }
@@ -52,7 +61,17 @@ class game {
 
     update() {
         this.render();
-        this.b.update();
+        count++;
+        if (start) {
+            if (count2 == count) {
+                if (index < N) {
+                    this.b[index++].start = true;
+                    count2 = count + 2;
+                }
+            }
+        }
+        for (let i = 0; i < N; i++)
+            this.b[i].update();
     }
 
     render() {
@@ -68,7 +87,8 @@ class game {
 
     draw() {
         this.clearScreen();
-        this.b.draw();    
+        for (let i = 0; i < N; i++)
+            this.b[i].draw();    
     }
 
     clearScreen() {

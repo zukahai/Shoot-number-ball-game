@@ -5,6 +5,7 @@ class ball{
         this.y = YYY;
         this.dx = 0;
         this.dy = 0;
+        this.start = false;
     }
 
     init() {
@@ -12,12 +13,14 @@ class ball{
     }
 
     update() {
-        this.x += this.dx;
-        this.y += this.dy;
-        if (this.x < 0 || this.x > game_W)
-            this.dx = -this.dx;
-        if (this.y < 0 || this.y > game_H)
-            this.dy = -this.dy;
+        if (this.start) {
+            this.x += this.dx;
+            this.y += this.dy;
+            if (this.x < 0 || this.x > game_W)
+                this.dx = -this.dx;
+            if (this.y < 0 || this.y > game_H)
+                this.dy = -this.dy;
+        }
     }
 
     draw() {
