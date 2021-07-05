@@ -2,7 +2,7 @@ game_W = 0, game_H = 0;
 XXX = 0, YYY = 0;
 start = false;
 dx = 0, dy = 0;
-Nball = 10;
+Nball = 20;
 index = 0;
 Data = [];
 N = 6;
@@ -74,8 +74,8 @@ class game {
             dx = x - XXX;
             dy = y - YYY;
             var range = Math.sqrt(dx * dx + dy * dy);
-            dx /= (range / (this.getWidth() / 1.5));
-            dy /= (range / (this.getWidth() / 1.5));
+            dx /= (range / (this.getWidth() / 3));
+            dy /= (range / (this.getWidth() / 3));
             for (let i = 0; i < Nball; i++) {
                 this.b[i].dx = dx;
                 this.b[i].dy = dy;
@@ -89,7 +89,7 @@ class game {
     loop() {
         this.update();
         this.draw();
-        setTimeout(() => this.loop(), 30);
+        setTimeout(() => this.loop(), 15);
     }
 
     update() {
@@ -99,7 +99,7 @@ class game {
             if (count2 == count) {
                 if (index < Nball) {
                     this.b[index++].start = true;
-                    count2 = count + 1;
+                    count2 = count + 2;
                 }
             }
         }
@@ -138,7 +138,7 @@ class game {
                     // console.log(Data[i][j]);
                     this.context.fillStyle = '#' + Data[i][j].color;
                     this.context.fillRect(Data[i][j].xx , Data[i][j].yy, WidthRectangle, HeightRectangle);
-                }
+            }
     }
 
     getWidth() {
