@@ -7,6 +7,7 @@ index = 0;
 Data = [];
 N = 6;
 M = 0;
+cl = ['#FFFF66', '#33FF66', '0099FF', '#FF6600', '#FF0066', '#00EE00'];
 WidthRectangle = 0;
 HeightRectangle = 0;
 count = 0, count2 = 0;
@@ -35,9 +36,9 @@ class game {
         for (let i = 0; i < M; i++) {
             yy = i * HeightRectangle;
             for (let j = 0; j < N; j++) {
-                color = Math.floor(Math.random()*16777215).toString(16);
+                color = Math.floor(Math.random()*16777215 / 2 + 16777215 / 2).toString(16);
                 xx = j * WidthRectangle;
-                Data[i][j] = {xx, yy, color, alive : false};
+                Data[i][j] = {xx, yy, color, alive : false, value: Math.floor(Math.random() * 50 + 5)};
             }
         }
 
@@ -74,8 +75,8 @@ class game {
             dx = x - XXX;
             dy = y - YYY;
             var range = Math.sqrt(dx * dx + dy * dy);
-            dx /= (range / (this.getWidth() / 3));
-            dy /= (range / (this.getWidth() / 3));
+            dx /= (range / (this.getWidth() / 10));
+            dy /= (range / (this.getWidth() / 10));
             for (let i = 0; i < Nball; i++) {
                 this.b[i].dx = dx;
                 this.b[i].dy = dy;
@@ -89,7 +90,7 @@ class game {
     loop() {
         this.update();
         this.draw();
-        setTimeout(() => this.loop(), 15);
+        setTimeout(() => this.loop(), 1);
     }
 
     update() {
@@ -99,7 +100,7 @@ class game {
             if (count2 == count) {
                 if (index < Nball) {
                     this.b[index++].start = true;
-                    count2 = count + 2;
+                    count2 = count + 10;
                 }
             }
         }
@@ -132,13 +133,25 @@ class game {
     }
 
     drawArrayRectangle() {
+        this.context.font = this.getWidth() + 'px Calibri';
         for (let i = 0; i < M; i++)
             for (let j = 0; j < N; j++)
                 if (Data[i][j].alive) {
-                    // console.log(Data[i][j]);
                     this.context.fillStyle = '#' + Data[i][j].color;
                     this.context.fillRect(Data[i][j].xx , Data[i][j].yy, WidthRectangle, HeightRectangle);
-            }
+                    this.context.fillStyle = "#000000";
+                    this.context.fillText(Data[i][j].value, Data[i][j].xx + this.margin(Data[i][j].value) , Data[i][j].yy + WidthRectangle / 2.2);
+                }
+    }
+
+    margin(number) {
+        number = Math.floor(number);
+        if (number < 10)
+            return this.getWidth() / 1;
+        if (number < 100)
+            return this.getWidth() / 1.5;
+        if (number < 1000)
+            return this.getWidth() / 2.5;
     }
 
     getWidth() {

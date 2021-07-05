@@ -24,13 +24,18 @@ class ball{
                 for (let j = 0; j < N; j++) {
                     var k = this.check(Data[i][j]);
                     // console.log(k);
-                    if (k == 1)
+                    if (k != -1) {
+                        if (k == 1)
                         this.dx = -this.dx;
-                    if (k == 2)
-                        this.dy = -this.dy;
-                    if (k == 3) {
-                        this.dx = -this.dx;
-                        this.dy = -this.dy;
+                        if (k == 2)
+                            this.dy = -this.dy;
+                        if (k == 3) {
+                            this.dx = -this.dx;
+                            this.dy = -this.dy;
+                        }
+                        Data[i][j].value--;
+                        if (Data[i][j].value <= 0)
+                            Data[i][j].alive = false;
                     }
                 }
             
