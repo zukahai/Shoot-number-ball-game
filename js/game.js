@@ -1,4 +1,7 @@
 game_W = 0, game_H = 0;
+XXX = 0, YYY = 0;
+start = false;
+dx = 0, dy = 0;
 class game {
     constructor() {
         this.canvas = null;
@@ -12,6 +15,7 @@ class game {
         document.body.appendChild(this.canvas);
 
         this.render();
+        this.b = new ball(this);
         
         this.loop();
 
@@ -20,25 +24,35 @@ class game {
     }
 
     listenKeyboard() {
-        document.addEventListener("keydown", key => {
-
+        document.addEventListener("keydown", evt => {
+            
         })
     }
 
     listenMouse() {
         document.addEventListener("mousedown", evt => {
-            
+            var x = evt.x;
+            var y = evt.y;
+            dx = x - XXX;
+            dy = y - YYY;
+            var range = Math.sqrt(dx * dx + dy * dy);
+            dx /= (range / (this.getWidth() / 2));
+            dy /= (range / (this.getWidth() / 2));
+            this.b.dx = dx;
+            this.b.dy = dy;
+            console.log(x, ' ', y);
         })
     }
 
     loop() {
         this.update();
         this.draw();
-        setTimeout(() => this.loop(), 7);
+        setTimeout(() => this.loop(), 30);
     }
 
     update() {
         this.render();
+        this.b.update();
     }
 
     render() {
@@ -47,12 +61,14 @@ class game {
             this.canvas.height = document.documentElement.clientHeight;
             game_W = this.canvas.width;
             game_H = this.canvas.height;
+            XXX = game_W / 2;
+            YYY = game_H - this.getWidth();
         }
     }
 
     draw() {
         this.clearScreen();
-        this.drawBitcoin();
+        this.b.draw();    
     }
 
     clearScreen() {
