@@ -1,5 +1,6 @@
 game_W = 0, game_H = 0;
 XXX = 0, YYY = 0;
+XX = -1;
 start = false;
 dx = 0, dy = 0;
 Nball = 20;
@@ -70,6 +71,9 @@ class game {
 
     listenMouse() {
         document.addEventListener("mousedown", evt => {
+            if (start)
+                return;
+            XX = -1;
             var x = evt.x;
             var y = evt.y;
             dx = x - XXX;
@@ -106,6 +110,11 @@ class game {
         }
         for (let i = 0; i < Nball; i++)
             this.b[i].update();
+        if (this.checkFinish()) {
+            index = 0;
+            XX = -1;
+            start = false;
+        }
     }
 
     render() {
@@ -117,6 +126,13 @@ class game {
             XXX = game_W / 2;
             YYY = game_H - this.getWidth();
         }
+    }
+
+    checkFinish() {
+        for (let i = 0; i < Nball; i++)
+            if (this.b[i].start == true)
+                return false;
+        return true;
     }
 
     draw() {

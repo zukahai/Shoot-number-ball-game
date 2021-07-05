@@ -18,7 +18,7 @@ class ball{
         if (this.start) {
             if (this.x + dx - rCircle < 0 || this.x + dx + rCircle > game_W)
                 this.dx = -this.dx;
-            if (this.y + dy - rCircle < 0 || this.y + dy + rCircle > game_H)
+            if (this.y + dy - rCircle < 0)
                 this.dy = -this.dy;
             for (let i = 0; i < M; i++)
                 for (let j = 0; j < N; j++) {
@@ -41,6 +41,16 @@ class ball{
             
             this.x += this.dx;
             this.y += this.dy;
+            if (this.y > game_H) {
+                if (XX == -1) {
+                    XX = 0;
+                    XXX = this.x;
+                    console.log(XXX);
+                }
+                this.start = false;
+                this.x = XXX;
+                this.y = YYY;
+            }
         }
     }
 
