@@ -3,11 +3,12 @@ XXX = 0, YYY = 0;
 XX = -1;
 start = false;
 dx = 0, dy = 0;
+cs = 0;
 Nball = 20;
 index = 0;
 Data = [];
 N = 6;
-M = 0;
+M = 12;
 cl = ['#FFFF66', '#33FF66', '0099FF', '#FF6600', '#FF0066', '#00EE00'];
 WidthRectangle = 0;
 HeightRectangle = 0;
@@ -26,10 +27,11 @@ class game {
 
         this.render();
 
-        WidthRectangle = game_W / 6;
-        HeightRectangle = 2 * WidthRectangle / 3;
+        WidthRectangle = game_W / N;
+        HeightRectangle = game_H / (M + 1);
+        console.log(game_W, ' ', WidthRectangle);
+        console.log(WidthRectangle / HeightRectangle);
         Data = [];
-        M = Math.floor(1.5 * game_H / (game_W / N)) + 1;
         for (let i = 0; i < M; i++)
             Data[i] = [0, 0, 0, 0, 0, 0];
 
@@ -71,8 +73,8 @@ class game {
 
     listenMouse() {
         document.addEventListener("mousedown", evt => {
-            var x = evt.x;
-            var y = evt.y;
+            var x = evt.offsetX == undefined ? evt.layerX : evt.offsetX;
+            var y = evt.offsetY == undefined ? evt.layerY : evt.offsetY;
             this.solve(x, y);
         })
     }
@@ -137,17 +139,23 @@ class game {
             if (Math.random() < 0.3)
                 Data[0][j].alive = true;
         }
-        console.log(Data[5]);
     }
 
     render() {
-        if (game_W != document.documentElement.clientWidth || game_H != document.documentElement.clientHeight) {
+        if (game_W / document.documentElement.clientWidth != cs || game_H != document.documentElement.clientHeight) {
             this.canvas.width = document.documentElement.clientWidth;
             this.canvas.height = document.documentElement.clientHeight;
+            M++;
+            if (this.canvas.width / N < (3 / 2) * this.canvas.height / M)
+                this.canvas.height = (2 / 3) * M * this.canvas.width / N;
+            else 
+                this.canvas.width = (3 / 2) * N * this.canvas.height / M;
             game_W = this.canvas.width;
             game_H = this.canvas.height;
+            cs = game_W / document.documentElement.clientWidth;
             XXX = game_W / 2;
-            YYY = game_H - this.getWidth();
+            YYY = game_H - game_H / (2 * M);
+            M--;
         }
     }
 

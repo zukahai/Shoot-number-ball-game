@@ -45,8 +45,8 @@ class ball{
                 if (XX == -1) {
                     XX = 0;
                     XXX = this.x;
-                    console.log(XXX);
                 }
+                console.log('XXX = ', XXX);
                 this.start = false;
                 this.x = XXX;
                 this.y = YYY;
