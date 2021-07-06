@@ -4,11 +4,13 @@ XX = -1;
 start = false;
 dx = 0, dy = 0;
 cs = 0;
+xEnd = 0, yEnd = 0;
 Nball = 3;
 NballTemp = 3;
 index = 0;
 Data = [];
 turn = 0;
+touchCheck = false;
 score = 0;
 N = 6;
 M = 12;
@@ -64,21 +66,40 @@ class game {
         
         this.loop();
 
-        this.listenKeyboard();
         this.listenMouse();
-    }
-
-    listenKeyboard() {
-        document.addEventListener("keydown", evt => {
-            
-        })
+        this.listenTouch();
     }
 
     listenMouse() {
         document.addEventListener("mousedown", evt => {
+            touchCheck = true;
+        })
+        
+        document.addEventListener("mousemove", evt => {
             var x = evt.offsetX == undefined ? evt.layerX : evt.offsetX;
             var y = evt.offsetY == undefined ? evt.layerY : evt.offsetY;
+            xEnd = x + 100 * (x - XXX), yEnd = x + 100 * (y - YYY);
+        })
+
+        document.addEventListener("mouseup", evt => {
+            var x = evt.offsetX == undefined ? evt.layerX : evt.offsetX;
+            var y = evt.offsetY == undefined ? evt.layerY : evt.offsetY;
+            touchCheck = false;
             this.solve(x, y);
+        })
+    }
+
+    listenTouch() {
+        document.addEventListener("touchmove", evt => {
+            
+        })
+
+        document.addEventListener("touchstart", evt => {
+            
+        })
+
+        document.addEventListener("touchend", evt => {    
+            
         })
     }
 
@@ -185,12 +206,23 @@ class game {
 
     draw() {
         this.clearScreen();
+        if (touchCheck)
+            this.drawLine(XXX, YYY, xEnd, yEnd);
         this.drawArrayRectangle();
         for (let i = 0; i < Nball; i++)
             this.b[i].draw();
         this.context.fillStyle = "cyan";
         this.context.fillText(Nball, game_W - WidthRectangle, YYY + HeightRectangle / 4);
         this.context.fillText("Score: " + score, WidthRectangle / 7, YYY + HeightRectangle / 4); 
+    }
+
+    drawLine(x1, y1, x2, y2) {
+        this.context.beginPath();
+        this.context.strokeStyle  = "red";
+        this.context.lineWidth = WidthRectangle / 20;
+        this.context.moveTo(x1, y1);
+        this.context.lineTo(x2, y2);
+        this.context.stroke();
     }
 
     clearScreen() {
