@@ -5,7 +5,7 @@ start = false;
 dx = 0, dy = 0;
 cs = 0;
 xEnd = 0, yEnd = 0;
-Nball = NballTemp = 30;
+Nball = NballTemp = 3;
 index = 0;
 Data = [];
 turn = 0;
