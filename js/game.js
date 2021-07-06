@@ -4,10 +4,11 @@ XX = -1;
 start = false;
 dx = 0, dy = 0;
 cs = 0;
-Nball = 5;
-NballTemp = 5;
+Nball = 3;
+NballTemp = 3;
 index = 0;
 Data = [];
+turn = 0;
 N = 6;
 M = 12;
 cl = ['#FFFF66', '#33FF66', '0099FF', '#FF6600', '#FF0066', '#00EE00'];
@@ -42,7 +43,7 @@ class game {
             for (let j = 0; j < N; j++) {
                 color = Math.floor(Math.random() * 16777215 / 2 + 16777215 / 2).toString(16);
                 xx = j * WidthRectangle;
-                Data[i][j] = {xx, yy, color, alive : false, value: Math.floor(Math.random() * 4 + 2), type : 1};
+                Data[i][j] = {xx, yy, color, alive : false, value: Math.floor(Math.random() * 2 + 1), type : 1};
             }
         }
 
@@ -51,7 +52,7 @@ class game {
             for (let j = 0; j < N; j++) {
                 if (Math.random() < 0.2)
                     Data[i][j].alive = true;
-                else if (Math.random() < 0.3) {
+                else if (Math.random() < 0.1) {
                     Data[i][j].alive = true;
                     Data[i][j].type = 2;
                 }
@@ -134,6 +135,12 @@ class game {
     }
 
     matrixDown() {
+        turn++;
+        for (let j = 0; j < N; j++) 
+            if (Data[M - 1][j].alive && Data[M - 1][j].type == 1) {
+                window.alert("You lose!");
+                location.reload();
+            }
         for (let i = M - 1; i > 0; i--)
             for (let j = 0; j < N; j++) {
                 Data[i][j].color = Data[i - 1][j].color;
@@ -144,7 +151,7 @@ class game {
         for (let j = 0; j < N; j++) {
             let color = Math.floor(Math.random()*16777215 / 2 + 16777215 / 2).toString(16);
             let xx = j * WidthRectangle;
-            Data[0][j] = {xx, yy: 0, color, alive : false, value: Math.floor(Math.random() * 4 + 1)};
+            Data[0][j] = {xx, yy: 0, color, alive : false, value: Math.floor(Math.random() * turn / 3 + turn / 3 + 1)};
             if (Math.random() < 0.3) {
                 Data[0][j].alive = true;
                 Data[0][j].type = 1;
@@ -184,7 +191,9 @@ class game {
         this.clearScreen();
         this.drawArrayRectangle();
         for (let i = 0; i < Nball; i++)
-            this.b[i].draw();    
+            this.b[i].draw();
+        this.context.fillStyle = "cyan";
+        this.context.fillText(Nball, XXX + WidthRectangle / 2, YYY + HeightRectangle / 4); 
     }
 
     clearScreen() {
