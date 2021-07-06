@@ -5,8 +5,7 @@ start = false;
 dx = 0, dy = 0;
 cs = 0;
 xEnd = 0, yEnd = 0;
-Nball = 3;
-NballTemp = 3;
+Nball = NballTemp = 30;
 index = 0;
 Data = [];
 turn = 0;
@@ -190,7 +189,8 @@ class game {
         if (start) {
             if (count2 == count) {
                 if (index < Nball) {
-                    this.b[index++].start = true;
+                    this.b[index].start = true;
+                    this.b[index++].end = true;
                     count2 = count + 10;
                 }
             }

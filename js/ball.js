@@ -7,6 +7,7 @@ class ball{
         this.dx = 0;
         this.dy = 0;
         this.start = false;
+        this.end = false;
         rCircle = this.game.getWidth() / 5;
     }
 
@@ -56,14 +57,16 @@ class ball{
                 this.start = false;
                 this.y = YYY;
             }
-        } else {
+        } else if (this.end) {
             if (Math.abs(this.x - XXX) > game_W / 200) {
                 if (this.x < XXX)
                     this.x += Math.abs(this.x - XXX) / 30;
                 else 
                     this.x -= Math.abs(this.x - XXX) / 30;
-            } else 
+            } else {
                 this.x = XXX;
+                this.end = false;
+            }
         }
     }
 
