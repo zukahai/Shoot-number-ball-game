@@ -226,7 +226,7 @@ class game {
             this.b[i].draw();
         this.context.fillStyle = "cyan";
         this.context.fillText(Nball, game_W - WidthRectangle, YYY + HeightRectangle / 4);
-        this.context.fillText("Score: " + score, WidthRectangle / 7, YYY + HeightRectangle / 4); 
+        this.context.fillText(score, WidthRectangle / 7, YYY + HeightRectangle / 4); 
     }
 
     drawLine(x1, y1, x2, y2) {

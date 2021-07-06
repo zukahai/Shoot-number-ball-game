@@ -47,16 +47,23 @@ class ball{
             
             this.x += this.dx;
             this.y += this.dy;
-            if (this.y > game_H) {
+            if (this.y + dy > YYY) {
                 if (XX == -1) {
                     XX = 0;
                     XXX = this.x;
                 }
                 console.log('XXX = ', XXX);
                 this.start = false;
-                this.x = XXX;
                 this.y = YYY;
             }
+        } else {
+            if (Math.abs(this.x - XXX) > game_W / 200) {
+                if (this.x < XXX)
+                    this.x += Math.abs(this.x - XXX) / 30;
+                else 
+                    this.x -= Math.abs(this.x - XXX) / 30;
+            } else 
+                this.x = XXX;
         }
     }
 
