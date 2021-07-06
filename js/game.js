@@ -219,7 +219,7 @@ class game {
 
     draw() {
         this.clearScreen();
-        if (touchCheck)
+        if (touchCheck && !start)
             this.drawLine(XXX, YYY, xEnd, yEnd);
         this.drawArrayRectangle();
         for (let i = 0; i < Nball; i++)

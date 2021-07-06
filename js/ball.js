@@ -94,7 +94,7 @@ class ball{
 
     draw() {
         this.game.context.beginPath();
-        this.game.context.arc(this.x , this.y, rCircle, 0, Math.PI*2, false);
+        this.game.context.arc(this.x , this.y, rCircle, 0, Math.PI * 2, false);
         this.game.context.fillStyle = 'cyan';
         this.game.context.fill();
         this.game.context.closePath()
