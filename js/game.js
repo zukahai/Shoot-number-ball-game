@@ -185,7 +185,7 @@ class game {
             if (Math.random() < 0.3) {
                 Data[0][j].alive = true;
                 Data[0][j].type = 1;
-            } else if (Math.random() < 0.1) {
+            } else if (Math.random() < 0.15) {
                 Data[0][j].alive = true;
                 Data[0][j].type = 2;
             }
