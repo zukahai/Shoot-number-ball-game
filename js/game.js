@@ -31,14 +31,12 @@ class game {
 
         WidthRectangle = game_W / N;
         HeightRectangle = game_H / (M + 1);
-        console.log(game_W, ' ', WidthRectangle);
-        console.log(WidthRectangle / HeightRectangle);
         Data = [];
-        for (let i = 0; i < M; i++)
+        for (let i = 0; i < 2 * M; i++)
             Data[i] = [0, 0, 0, 0, 0, 0];
 
         let xx = 0, yy = 0, color = 0;
-        for (let i = 0; i < M; i++) {
+        for (let i = 0; i < 2 * M; i++) {
             yy = i * HeightRectangle;
             for (let j = 0; j < N; j++) {
                 color = Math.floor(Math.random() * 16777215 / 2 + 16777215 / 2).toString(16);
@@ -58,8 +56,6 @@ class game {
                 }
             }
         }
-            
-        console.log(Data);
 
         this.b = [];
         for (let i = 0; i < Nball; i++) 
@@ -106,7 +102,6 @@ class game {
         }
         start = true;
         count2 = count + 1;
-        console.log(x, ' ', y);
     }
 
     update() {
@@ -167,9 +162,9 @@ class game {
             this.canvas.width = document.documentElement.clientWidth;
             this.canvas.height = document.documentElement.clientHeight;
             M++;
-            if (this.canvas.width / N < (3 / 2) * this.canvas.height / M)
-                this.canvas.height = (2 / 3) * M * this.canvas.width / N;
-            else 
+            if (this.canvas.width / N < (3 / 2) * this.canvas.height / M) {
+                M = Math.floor(this.canvas.height / (2 / 3 * this.canvas.width / N));
+            } else if (this.canvas.width > 2 * N * this.canvas.height / M)
                 this.canvas.width = (3 / 2) * N * this.canvas.height / M;
             game_W = this.canvas.width;
             game_H = this.canvas.height;
