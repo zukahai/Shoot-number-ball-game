@@ -11,6 +11,7 @@ index = 0;
 Data = [];
 turn = 0;
 touchCheck = false;
+xtouch = 0, yTouch = 0;
 score = 0;
 N = 6;
 M = 12;
@@ -74,7 +75,7 @@ class game {
         document.addEventListener("mousedown", evt => {
             touchCheck = true;
         })
-        
+
         document.addEventListener("mousemove", evt => {
             var x = evt.offsetX == undefined ? evt.layerX : evt.offsetX;
             var y = evt.offsetY == undefined ? evt.layerY : evt.offsetY;
@@ -91,16 +92,28 @@ class game {
 
     listenTouch() {
         document.addEventListener("touchmove", evt => {
-            
+            var x = evt.touches[0].pageX - (document.documentElement.clientWidth - game_W) / 2;
+            var y = evt.touches[0].pageY;
+            xEnd = x + 100 * (x - XXX), yEnd = x + 100 * (y - YYY);
+            xtouch = x;
+            yTouch = y;
         })
 
         document.addEventListener("touchstart", evt => {
-            
+            touchCheck = true;
+            var x = evt.touches[0].pageX - (document.documentElement.clientWidth - game_W) / 2;
+            var y = evt.touches[0].pageY;
+            xEnd = x + 100 * (x - XXX), yEnd = x + 100 * (y - YYY);
+            xtouch = x;
+            yTouch = y;
         })
 
         document.addEventListener("touchend", evt => {    
-            
+            touchCheck = false;
+            this.solve(xtouch, yTouch);
         })
+
+        this.context.restore();
     }
 
     loop() {
