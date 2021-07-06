@@ -36,6 +36,7 @@ class ball{
                             Data[i][j].value--;
                             if (Data[i][j].value <= 0)
                                 Data[i][j].alive = false;
+                            score ++;
                         }
                     } else {
                         if (this.checkCircle(Data[i][j])) {

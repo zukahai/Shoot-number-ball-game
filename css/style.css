@@ -1,4 +1,9 @@
 body{
+    background-image: url("../images/background.jpg");
+    background-size: cover;
+}
+
+body{
     background-color: white;
     margin: 0px;
     text-align: center;

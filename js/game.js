@@ -9,6 +9,7 @@ NballTemp = 3;
 index = 0;
 Data = [];
 turn = 0;
+score = 0;
 N = 6;
 M = 12;
 cl = ['#FFFF66', '#33FF66', '0099FF', '#FF6600', '#FF0066', '#00EE00'];
@@ -188,7 +189,8 @@ class game {
         for (let i = 0; i < Nball; i++)
             this.b[i].draw();
         this.context.fillStyle = "cyan";
-        this.context.fillText(Nball, XXX + WidthRectangle / 2, YYY + HeightRectangle / 4); 
+        this.context.fillText(Nball, game_W - WidthRectangle, YYY + HeightRectangle / 4);
+        this.context.fillText("Score: " + score, WidthRectangle / 7, YYY + HeightRectangle / 4); 
     }
 
     clearScreen() {
