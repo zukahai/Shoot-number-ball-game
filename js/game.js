@@ -226,7 +226,7 @@ class game {
         for (let j = 0; j < N; j++) {
             let color = Math.floor(Math.random()*16777215 / 2 + 16777215 / 2).toString(16);
             let xx = j * WidthRectangle;
-            Data[0][j] = {xx, yy: 0, color, alive : false, value: Math.floor(Math.random() * turn / 3 + turn / 3 + 1)};
+            Data[0][j] = {xx, yy: 0, color, alive : false, value: Math.floor(Math.random() * 2 * turn / 3 + turn / 3 + 1)};
             if (Math.random() < 0.3) {
                 Data[0][j].alive = true;
                 Data[0][j].type = 1;
