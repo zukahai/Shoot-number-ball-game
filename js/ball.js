@@ -21,23 +21,28 @@ class ball{
             if (this.y + dy - rCircle < 0)
                 this.dy = -this.dy;
             for (let i = 0; i < M; i++)
-                for (let j = 0; j < N; j++) {
-                    var k = this.check(Data[i][j]);
-                    // console.log(k);
-                    if (k != -1) {
-                        if (k == 1)
-                        this.dx = -this.dx;
-                        if (k == 2)
-                            this.dy = -this.dy;
-                        if (k == 3) {
+                for (let j = 0; j < N; j++) 
+                    if (Data[i][j].type == 1){
+                        var k = this.checkRectangle(Data[i][j]);
+                        if (k != -1) {
+                            if (k == 1)
                             this.dx = -this.dx;
-                            this.dy = -this.dy;
+                            if (k == 2)
+                                this.dy = -this.dy;
+                            if (k == 3) {
+                                this.dx = -this.dx;
+                                this.dy = -this.dy;
+                            }
+                            Data[i][j].value--;
+                            if (Data[i][j].value <= 0)
+                                Data[i][j].alive = false;
                         }
-                        Data[i][j].value--;
-                        if (Data[i][j].value <= 0)
+                    } else {
+                        if (this.checkCircle(Data[i][j])) {
                             Data[i][j].alive = false;
+                            NballTemp++;
+                        }
                     }
-                }
             
             this.x += this.dx;
             this.y += this.dy;
@@ -54,17 +59,12 @@ class ball{
         }
     }
 
-    check(rtl) {
+    checkRectangle(rtl) {
         let X = this.x + this.dx;
         let Y = this.y + this.dy;
         if (!rtl.alive)
             return -1;
         if (X >= rtl.xx && X <= rtl.xx + WidthRectangle && Y >= rtl.yy && Y <= rtl.yy + HeightRectangle)  {
-            // var m1 = Math.min(Math.abs(X - rtl.xx), Math.abs(X - rtl.xx - WidthRectangle));
-            // var m2 = Math.min(Math.abs(Y - rtl.yy), Math.abs(Y - rtl.yy - HeightRectangle));
-            // if (m1 < m2)
-            //     return 1;
-            // return 2;
             X -= this.dx;
             Y -= this.dy;
             if (X >= rtl.xx && X <= rtl.xx + WidthRectangle)
@@ -74,6 +74,21 @@ class ball{
             return 3;
         }
         return -1;
+    }
+
+    checkCircle(rtl) {
+        if (!rtl.alive)
+            return false;
+        let X = this.x + this.dx;
+        let Y = this.y + this.dy;
+        let x = rtl.xx + WidthRectangle / 2;
+        let y = rtl.yy + HeightRectangle / 2;
+        let rg = this.range(X, Y, x, y);
+        return (rg <= 2.5 * rCircle);
+    }
+
+    range(x1, y1, x2, y2) {
+        return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
     }
 
     draw() {

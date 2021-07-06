@@ -4,7 +4,8 @@ XX = -1;
 start = false;
 dx = 0, dy = 0;
 cs = 0;
-Nball = 20;
+Nball = 5;
+NballTemp = 5;
 index = 0;
 Data = [];
 N = 6;
@@ -39,9 +40,9 @@ class game {
         for (let i = 0; i < M; i++) {
             yy = i * HeightRectangle;
             for (let j = 0; j < N; j++) {
-                color = Math.floor(Math.random()*16777215 / 2 + 16777215 / 2).toString(16);
+                color = Math.floor(Math.random() * 16777215 / 2 + 16777215 / 2).toString(16);
                 xx = j * WidthRectangle;
-                Data[i][j] = {xx, yy, color, alive : false, value: Math.floor(Math.random() * 4 + 1)};
+                Data[i][j] = {xx, yy, color, alive : false, value: Math.floor(Math.random() * 4 + 2), type : 1};
             }
         }
 
@@ -50,6 +51,10 @@ class game {
             for (let j = 0; j < N; j++) {
                 if (Math.random() < 0.2)
                     Data[i][j].alive = true;
+                else if (Math.random() < 0.3) {
+                    Data[i][j].alive = true;
+                    Data[i][j].type = 2;
+                }
             }
         }
             
@@ -122,22 +127,31 @@ class game {
                 this.matrixDown();
             XX = -1;
             start = false;
+            for (let i = Nball; i < NballTemp; i++)
+                this.b[i] = new ball(this);
+            Nball = NballTemp;
         }
     }
 
     matrixDown() {
-        for (let i = M - 2; i > 0; i--)
+        for (let i = M - 1; i > 0; i--)
             for (let j = 0; j < N; j++) {
                 Data[i][j].color = Data[i - 1][j].color;
                 Data[i][j].alive = Data[i - 1][j].alive;
                 Data[i][j].value = Data[i - 1][j].value;
+                Data[i][j].type = Data[i - 1][j].type;
             }
         for (let j = 0; j < N; j++) {
             let color = Math.floor(Math.random()*16777215 / 2 + 16777215 / 2).toString(16);
             let xx = j * WidthRectangle;
             Data[0][j] = {xx, yy: 0, color, alive : false, value: Math.floor(Math.random() * 4 + 1)};
-            if (Math.random() < 0.3)
+            if (Math.random() < 0.3) {
                 Data[0][j].alive = true;
+                Data[0][j].type = 1;
+            } else if (Math.random() < 0.1) {
+                Data[0][j].alive = true;
+                Data[0][j].type = 2;
+            }
         }
     }
 
@@ -180,32 +194,39 @@ class game {
     }
 
     drawArrayRectangle() {
-        this.context.font = this.getWidth() + 'px Calibri';
+        this.context.font = WidthRectangle / 1.5 + 'px Calibri';
         for (let i = 0; i < M; i++)
             for (let j = 0; j < N; j++)
                 if (Data[i][j].alive) {
-                    this.context.fillStyle = '#' + Data[i][j].color;
-                    this.context.fillRect(Data[i][j].xx , Data[i][j].yy, WidthRectangle, HeightRectangle);
-                    this.context.fillStyle = "#000000";
-                    this.context.fillText(Data[i][j].value, Data[i][j].xx + this.margin(Data[i][j].value) , Data[i][j].yy + WidthRectangle / 2.2);
+                    if (Data[i][j].type == 1) {
+                        this.context.fillStyle = '#' + Data[i][j].color;
+                        this.context.fillRect(Data[i][j].xx , Data[i][j].yy, WidthRectangle, HeightRectangle);
+                        this.context.fillStyle = "#000000";
+                        this.context.fillText(Data[i][j].value, Data[i][j].xx + this.margin(Data[i][j].value) , Data[i][j].yy + HeightRectangle / 1.3);
+                    } else if (Data[i][j].type == 2) {
+                        this.context.beginPath();
+                        this.context.arc(Data[i][j].xx + WidthRectangle / 2, Data[i][j].yy + HeightRectangle / 2, 1.5 * rCircle, 0, Math.PI*2, false);
+                        this.context.fillStyle = '#00FF00';
+                        this.context.fill();
+                        this.context.closePath()
+                    }
                 }
     }
 
     margin(number) {
         number = Math.floor(number);
         if (number < 10)
-            return this.getWidth() / 1;
+            return WidthRectangle / 2.65;
         if (number < 100)
-            return this.getWidth() / 1.5;
+            return this.getWidth() / 4.5;
         if (number < 1000)
-            return this.getWidth() / 2.5;
+            return 0;
     }
 
     getWidth() {
         var area = document.documentElement.clientWidth * document.documentElement.clientHeight;
         return Math.sqrt(area / 300);
     }
-
 }
 
 var g = new game();
