@@ -126,12 +126,9 @@ class game {
     matrixDown() {
         for (let i = M - 2; i > 0; i--)
             for (let j = 0; j < N; j++) {
-                var a1 = Data[i][j].xx;
-                var a2 = Data[i][j].yy;
-                var a3 = Data[i - 1][j].color;
-                var a4 = Data[i - 1][j].alive;
-                var a5 = Data[i - 1][j].value;
-                Data[i][j] = {xx : a1, yy: a2, color: a3, alive: a4, value: a5};
+                Data[i][j].color = Data[i - 1][j].color;
+                Data[i][j].alive = Data[i - 1][j].alive;
+                Data[i][j].value = Data[i - 1][j].value;
             }
         for (let j = 0; j < N; j++) {
             let color = Math.floor(Math.random()*16777215 / 2 + 16777215 / 2).toString(16);
