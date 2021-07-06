@@ -79,16 +79,34 @@ class game {
         document.addEventListener("mousemove", evt => {
             var x = evt.offsetX == undefined ? evt.layerX : evt.offsetX;
             var y = evt.offsetY == undefined ? evt.layerY : evt.offsetY;
-            if (Math.abs(y - YYY) / Math.abs(x - XXX) < Math.sqrt(3) / 3)
-                y = YYY - Math.abs(x - XXX) * (Math.sqrt(3) / 3);
+            if (x > XXX) {
+                if ((game_W - XXX) / (x - XXX) * (YYY - y) < HeightRectangle) {
+                    x = game_W;
+                    y = game_H - 1.5 * HeightRectangle;
+                }
+            } else {
+                if (XXX / (XXX - x) * (YYY - y) < HeightRectangle) {
+                    x = 0;
+                    y = game_H - 1.5 * HeightRectangle;
+                }
+            }
             xEnd = x + 100 * (x - XXX), yEnd = x + 100 * (y - YYY);
         })
 
         document.addEventListener("mouseup", evt => {
             var x = evt.offsetX == undefined ? evt.layerX : evt.offsetX;
             var y = evt.offsetY == undefined ? evt.layerY : evt.offsetY;
-            if (Math.abs(y - YYY) / Math.abs(x - XXX) < Math.sqrt(3) / 3)
-                y = YYY - Math.abs(x - XXX) * (Math.sqrt(3) / 3);
+            if (x > XXX) {
+                if ((game_W - XXX) / (x - XXX) * (YYY - y) < HeightRectangle) {
+                    x = game_W;
+                    y = game_H - 1.5 * HeightRectangle;
+                }
+            } else {
+                if (XXX / (XXX - x) * (YYY - y) < HeightRectangle) {
+                    x = 0;
+                    y = game_H - 1.5 * HeightRectangle;
+                }
+            }
             touchCheck = false;
             this.solve(x, y);
         })
@@ -98,8 +116,17 @@ class game {
         document.addEventListener("touchmove", evt => {
             var x = evt.touches[0].pageX - (document.documentElement.clientWidth - game_W) / 2;
             var y = evt.touches[0].pageY;
-            if (Math.abs(y - YYY) / Math.abs(x - XXX) < Math.sqrt(3) / 3)
-                y = YYY - Math.abs(x - XXX) * (Math.sqrt(3) / 3);
+            if (x > XXX) {
+                if ((game_W - XXX) / (x - XXX) * (YYY - y) < HeightRectangle) {
+                    x = game_W;
+                    y = game_H - 1.5 * HeightRectangle;
+                }
+            } else {
+                if (XXX / (XXX - x) * (YYY - y) < HeightRectangle) {
+                    x = 0;
+                    y = game_H - 1.5 * HeightRectangle;
+                }
+            }
             xEnd = x + 100 * (x - XXX), yEnd = x + 100 * (y - YYY);
             xtouch = x;
             yTouch = y;
@@ -109,8 +136,17 @@ class game {
             touchCheck = true;
             var x = evt.touches[0].pageX - (document.documentElement.clientWidth - game_W) / 2;
             var y = evt.touches[0].pageY;
-            if (Math.abs(y - YYY) / Math.abs(x - XXX) < Math.sqrt(3) / 3)
-                y = YYY - Math.abs(x - XXX) * (Math.sqrt(3) / 3);
+            if (x > XXX) {
+                if ((game_W - XXX) / (x - XXX) * (YYY - y) < HeightRectangle) {
+                    x = game_W;
+                    y = game_H - 1.5 * HeightRectangle;
+                }
+            } else {
+                if (XXX / (XXX - x) * (YYY - y) < HeightRectangle) {
+                    x = 0;
+                    y = game_H - 1.5 * HeightRectangle;
+                }
+            }
             
             xEnd = x + 100 * (x - XXX), yEnd = x + 100 * (y - YYY);
             xtouch = x;
