@@ -44,7 +44,7 @@ class game {
             for (let j = 0; j < N; j++) {
                 color = Math.floor(Math.random() * 16777215 / 2 + 16777215 / 2).toString(16);
                 xx = j * WidthRectangle;
-                Data[i][j] = {xx, yy, color, alive : false, value: Math.floor(Math.random() * 2 + 1), type : 1};
+                Data[i][j] = {xx, yy, color, alive : false, value: Math.floor(Math.random() * 2 + 122), type : 1};
             }
         }
 
@@ -267,11 +267,12 @@ class game {
         if (touchCheck && !start)
             this.drawLine(XXX, YYY, xEnd, yEnd);
         this.drawArrayRectangle();
+        this.context.fillStyle = "#33FF33";
+        this.context.fillText(Nball, game_W - WidthRectangle, YYY + HeightRectangle / 4);
+        this.context.fillText(score, WidthRectangle / 7, YYY + HeightRectangle / 4);
+        this.context.fillStyle = "cyan"; 
         for (let i = 0; i < Nball; i++)
             this.b[i].draw();
-        this.context.fillStyle = "cyan";
-        this.context.fillText(Nball, game_W - WidthRectangle, YYY + HeightRectangle / 4);
-        this.context.fillText(score, WidthRectangle / 7, YYY + HeightRectangle / 4); 
     }
 
     drawLine(x1, y1, x2, y2) {
@@ -290,18 +291,18 @@ class game {
     }
 
     drawArrayRectangle() {
-        this.context.font = WidthRectangle / 1.5 + 'px Calibri';
+        this.context.font = 0.6 * Math.sqrt(HeightRectangle * WidthRectangle) + 'px Calibri';
         for (let i = 0; i < M; i++)
             for (let j = 0; j < N; j++)
                 if (Data[i][j].alive) {
                     if (Data[i][j].type == 1) {
                         this.context.fillStyle = '#' + Data[i][j].color;
                         this.context.fillRect(Data[i][j].xx , Data[i][j].yy, WidthRectangle, HeightRectangle);
-                        this.context.fillStyle = "#000000";
-                        this.context.fillText(Data[i][j].value, Data[i][j].xx + this.margin(Data[i][j].value) , Data[i][j].yy + HeightRectangle / 1.3);
+                        this.context.fillStyle = "#0000CC";
+                        this.context.fillText(Data[i][j].value, Data[i][j].xx + this.margin(Data[i][j].value) , Data[i][j].yy + 0.75 * HeightRectangle);
                     } else if (Data[i][j].type == 2) {
                         this.context.beginPath();
-                        this.context.arc(Data[i][j].xx + WidthRectangle / 2, Data[i][j].yy + HeightRectangle / 2, 1.5 * rCircle, 0, Math.PI*2, false);
+                        this.context.arc(Data[i][j].xx + WidthRectangle / 2, Data[i][j].yy + HeightRectangle / 2, 1.5 * rCircle, 0, Math.PI * 2, false);
                         this.context.fillStyle = '#00FF00';
                         this.context.fill();
                         this.context.closePath()
@@ -312,15 +313,16 @@ class game {
     margin(number) {
         number = Math.floor(number);
         if (number < 10)
-            return WidthRectangle / 2.65;
+            return 0.4 * WidthRectangle;
         if (number < 100)
-            return this.getWidth() / 4.5;
+            return 0.23 * WidthRectangle;
         if (number < 1000)
-            return 0;
+            return 0.13 * WidthRectangle;
+        return 0;
     }
 
     getWidth() {
-        var area = document.documentElement.clientWidth * document.documentElement.clientHeight;
+        var area = game_W * game_H;
         return Math.sqrt(area / 300);
     }
 }
