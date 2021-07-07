@@ -44,7 +44,7 @@ class game {
             for (let j = 0; j < N; j++) {
                 color = Math.floor(Math.random() * 16777215 / 2 + 16777215 / 2).toString(16);
                 xx = j * WidthRectangle;
-                Data[i][j] = {xx, yy, color, alive : false, value: Math.floor(Math.random() * 2 + 122), type : 1};
+                Data[i][j] = {xx, yy, color, alive : false, value: Math.floor(Math.random() * 3 + 1), type : 1};
             }
         }
 
