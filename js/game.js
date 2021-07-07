@@ -191,7 +191,7 @@ class game {
                 if (index < Nball) {
                     this.b[index].start = true;
                     this.b[index++].end = true;
-                    count2 = count + 10;
+                    count2 = count + 7;
                 }
             }
         }
@@ -213,7 +213,7 @@ class game {
         turn++;
         for (let j = 0; j < N; j++) 
             if (Data[M - 1][j].alive && Data[M - 1][j].type == 1) {
-                window.alert("You lose!");
+                window.alert("You lose!" + "\n" + "Your score: " + score);
                 location.reload();
             }
         for (let i = M - 1; i > 0; i--)
