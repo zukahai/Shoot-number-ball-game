@@ -52,10 +52,10 @@ class ball{
                 if (XX == -1) {
                     XX = 0;
                     XXX = this.x;
-                    if (XXX < 0)
-                        XXX = 0;
-                    if (XXX > game_W)
-                        XXX = game_W;
+                    if (XXX <= rCircle)
+                        XXX = rCircle;
+                    if (XXX >= game_W - rCircle)
+                        XXX = game_W - rCircle;
                 }
                 console.log('XXX = ', XXX);
                 this.start = false;
