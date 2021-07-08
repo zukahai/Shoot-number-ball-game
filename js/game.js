@@ -216,6 +216,7 @@ class game {
                 window.alert("You lose!" + "\n" + "Your score: " + score);
                 location.reload();
             }
+
         for (let i = M - 1; i > 0; i--)
             for (let j = 0; j < N; j++) {
                 Data[i][j].color = Data[i - 1][j].color;
@@ -223,6 +224,7 @@ class game {
                 Data[i][j].value = Data[i - 1][j].value;
                 Data[i][j].type = Data[i - 1][j].type;
             }
+            
         for (let j = 0; j < N; j++) {
             let color = Math.floor(Math.random()*16777215 / 2 + 16777215 / 2).toString(16);
             let xx = j * WidthRectangle;
