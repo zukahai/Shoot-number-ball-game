@@ -232,7 +232,7 @@ class game {
             if (Math.random() < 0.3) {
                 Data[0][j].alive = true;
                 Data[0][j].type = 1;
-            } else if (Math.random() < 0.07) {
+            } else if (Math.random() < 0.11) {
                 Data[0][j].alive = true;
                 Data[0][j].type = 2;
             }
@@ -269,8 +269,9 @@ class game {
         if (touchCheck && !start)
             this.drawLine(XXX, YYY, xEnd, yEnd);
         this.drawArrayRectangle();
-        this.context.fillStyle = "#33FF33";
+        this.context.fillStyle = this.setColor(Nball * 2);
         this.context.fillText(Nball, game_W - WidthRectangle, YYY + HeightRectangle / 4);
+        this.context.fillStyle = this.setColor(Math.floor(score / 20));
         this.context.fillText(score, WidthRectangle / 7, YYY + HeightRectangle / 4);
         this.context.fillStyle = "cyan"; 
         for (let i = 0; i < Nball; i++)
@@ -301,12 +302,12 @@ class game {
                         Data[i][j].color = this.setColor(Data[i][j].value);
                         this.context.fillStyle = Data[i][j].color;
                         this.context.fillRect(Data[i][j].xx , Data[i][j].yy, WidthRectangle, HeightRectangle);
-                        this.context.fillStyle = "#0000CC";
+                        this.context.fillStyle = "#ffffff";
                         this.context.fillText(Data[i][j].value, Data[i][j].xx + this.margin(Data[i][j].value) , Data[i][j].yy + 0.75 * HeightRectangle);
                     } else if (Data[i][j].type == 2) {
                         this.context.beginPath();
-                        this.context.arc(Data[i][j].xx + WidthRectangle / 2, Data[i][j].yy + HeightRectangle / 2, 1.5 * rCircle, 0, Math.PI * 2, false);
                         this.context.fillStyle = '#00FF00';
+                        this.context.arc(Data[i][j].xx + WidthRectangle / 2, Data[i][j].yy + HeightRectangle / 2, 1.5 * rCircle, 0, Math.PI * 2, false);
                         this.context.fill();
                         this.context.closePath()
                     }
@@ -314,19 +315,15 @@ class game {
     }
 
     setColor(N) {
-        if (N < 10)
-            return "#FFFFCC";
-        if (N < 25)
-            return "#99FF66";
-        if (N < 50)
-            return "#33FF33";
-        if (N < 85)
-            return "#00FF00";
-        if (N < 125)
-            return "#FFCC66"
-        if (N < 170)
-            return "#FFCC33";
-        return "#FF0033";
+        let ccc = ["#ACFA66", "#11F92A", "#5EAB18", "#20F8F8", "#10A9A9", "#4C59EA", "#2834AE", "#B378E0", "#8E31D4", "#5E1197", "#F34FF0", "#F806F4", "#F03143", "#FC0A0A"];
+        let c = 10;
+        let c2 = 10;
+        for (let i = 0; i < ccc.length; i++) {
+            if (N < c)
+                return ccc[i];
+            c += c2++;
+        }
+        return  ccc[ccc.length - 1];
     }
 
     margin(number) {
