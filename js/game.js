@@ -298,7 +298,8 @@ class game {
             for (let j = 0; j < N; j++)
                 if (Data[i][j].alive) {
                     if (Data[i][j].type == 1) {
-                        this.context.fillStyle = '#' + Data[i][j].color;
+                        Data[i][j].color = this.setColor(Data[i][j].value);
+                        this.context.fillStyle = Data[i][j].color;
                         this.context.fillRect(Data[i][j].xx , Data[i][j].yy, WidthRectangle, HeightRectangle);
                         this.context.fillStyle = "#0000CC";
                         this.context.fillText(Data[i][j].value, Data[i][j].xx + this.margin(Data[i][j].value) , Data[i][j].yy + 0.75 * HeightRectangle);
@@ -310,6 +311,22 @@ class game {
                         this.context.closePath()
                     }
                 }
+    }
+
+    setColor(N) {
+        if (N < 10)
+            return "#FFFFCC";
+        if (N < 25)
+            return "#99FF66";
+        if (N < 50)
+            return "#33FF33";
+        if (N < 85)
+            return "#00FF00";
+        if (N < 125)
+            return "#FFCC66"
+        if (N < 170)
+            return "#FFCC33";
+        return "#FF0033";
     }
 
     margin(number) {
