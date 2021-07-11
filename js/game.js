@@ -279,7 +279,7 @@ class game {
         if (touchCheck && !start)
             this.drawLine(XXX, YYY, xEnd, yEnd);
         this.drawArrayRectangle();
-        this.context.fillStyle = this.setColor(Nball * 2);
+        this.context.fillStyle = this.setColor(Nball);
         this.context.fillText(Nball, game_W - WidthRectangle, YYY + HeightRectangle / 4);
         this.context.fillStyle = this.setColor(Math.floor(score / 50));
         this.context.fillText(score, WidthRectangle / 7, YYY + HeightRectangle / 4);
