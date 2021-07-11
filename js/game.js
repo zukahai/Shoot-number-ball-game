@@ -14,6 +14,7 @@ xtouch = 0, yTouch = 0;
 score = 0;
 N = 6;
 M = 12;
+let x3 = 1;
 cl = ['#FFFF66', '#33FF66', '0099FF', '#FF6600', '#FF0066', '#00EE00'];
 WidthRectangle = 0;
 HeightRectangle = 0;
@@ -161,20 +162,26 @@ class game {
     }
 
     loop() {
-        this.update();
-        this.draw();
+        for (let  i = 0; i < x3; i++) {
+            this.update();
+            this.draw();
+        }
+        
         setTimeout(() => this.loop(), 1);
     }
 
     solve(x, y) {
-        if (start)
+        if (start) {
+            x3 = 3;
             return;
+        }
+            
         XX = -1;
         dx = x - XXX;
         dy = y - YYY;
         var range = Math.sqrt(dx * dx + dy * dy);
-        dx /= (range / (this.getWidth() / 10));
-        dy /= (range / (this.getWidth() / 10));
+        dx /= (range / (4 * x3));
+        dy /= (range / (4 * x3));
         for (let i = 0; i < Nball; i++) {
             this.b[i].dx = dx;
             this.b[i].dy = dy;
@@ -199,8 +206,11 @@ class game {
             this.b[i].update();
         if (this.checkFinish()) {
             index = 0;
-            if (XX == 0)
+            if (XX == 0) {
                 this.matrixDown();
+                x3 = 1;
+            }
+                
             XX = -1;
             start = false;
             for (let i = Nball; i < NballTemp; i++)
