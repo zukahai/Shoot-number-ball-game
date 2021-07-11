@@ -24,7 +24,12 @@ class ball{
             for (let i = 0; i < M; i++)
                 for (let j = 0; j < N; j++) 
                     if (Data[i][j].type == 1){
-                        var k = this.checkRectangle(Data[i][j]);
+                        var k = this.checkRectangle(Data[i][j], dx, dy);
+                        for (let l = 0; l <= 1; l += 0.01) 
+                            if (k == -1)
+                                k = this.checkRectangle(Data[i][j], l * this.dx / 100, l * this.dy / 100);
+                            else
+                                break;
                         if (k != -1) {
                             if (k == 1)
                             this.dx = -this.dx;
@@ -74,14 +79,14 @@ class ball{
         }
     }
 
-    checkRectangle(rtl) {
-        let X = this.x + this.dx;
-        let Y = this.y + this.dy;
+    checkRectangle(rtl, dx, dy) {
+        let X = this.x + dx;
+        let Y = this.y + dy;
         if (!rtl.alive)
             return -1;
         if (X >= rtl.xx && X <= rtl.xx + WidthRectangle && Y >= rtl.yy && Y <= rtl.yy + HeightRectangle)  {
-            X -= this.dx;
-            Y -= this.dy;
+            X -= dx;
+            Y -= dy;
             if (X >= rtl.xx && X <= rtl.xx + WidthRectangle)
                 return 2;
             if (Y >= rtl.yy && Y <= rtl.yy + HeightRectangle)
