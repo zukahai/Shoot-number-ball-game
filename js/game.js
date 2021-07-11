@@ -246,6 +246,9 @@ class game {
                 Data[0][j].alive = true;
                 Data[0][j].type = 2;
             }
+            let Jindex = Math.floor(Math.random() * 100000) % N;
+            Data[0][Jindex].alive = true;
+            Data[0][Jindex].type = 1;
         }
     }
 
@@ -281,7 +284,7 @@ class game {
         this.drawArrayRectangle();
         this.context.fillStyle = this.setColor(Nball);
         this.context.fillText(Nball, game_W - WidthRectangle, YYY + HeightRectangle / 4);
-        this.context.fillStyle = this.setColor(Math.floor(score / 50));
+        this.context.fillStyle = this.setColor(Math.floor(score / 100));
         this.context.fillText(score, WidthRectangle / 7, YYY + HeightRectangle / 4);
         this.context.fillStyle = "cyan"; 
         for (let i = 0; i < Nball; i++)
