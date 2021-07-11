@@ -220,6 +220,7 @@ class game {
     }
 
     matrixDown() {
+        let creat = true;
         turn++;
         for (let j = 0; j < N; j++) 
             if (Data[M - 1][j].alive && Data[M - 1][j].type == 1) {
@@ -240,15 +241,19 @@ class game {
             let xx = j * WidthRectangle;
             Data[0][j] = {xx, yy: 0, color, alive : false, value: Math.floor(Math.random() * 2 * turn / 3 + turn / 2.5 + 1)};
             if (Math.random() < 0.3) {
+                creat = false;
                 Data[0][j].alive = true;
                 Data[0][j].type = 1;
             } else if (Math.random() < 0.11) {
+                creat = false;
                 Data[0][j].alive = true;
                 Data[0][j].type = 2;
             }
-            let Jindex = Math.floor(Math.random() * 100000) % N;
-            Data[0][Jindex].alive = true;
-            Data[0][Jindex].type = 1;
+            if (creat) {
+                let Jindex = Math.floor(Math.random() * 100000) % N;
+                Data[0][Jindex].alive = true;
+                Data[0][Jindex].type = 1;
+            }
         }
     }
 
