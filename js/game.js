@@ -178,6 +178,8 @@ class game {
             
         XX = -1;
         dx = x - XXX;
+        if (dy == 0)
+            dy = dx;
         dy = y - YYY;
         var range = Math.sqrt(dx * dx + dy * dy);
         dx /= (range / (4 * x3));

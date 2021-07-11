@@ -21,6 +21,14 @@ class ball{
                 this.dx = -this.dx;
             if (this.y + dy - rCircle < 0)
                 this.dy = -this.dy;
+                
+            if (this.y == YYY) {
+                if (this.x <= rCircle)
+                this.x = rCircle;
+                if (this.x >= game_W - rCircle)
+                    this.x = game_W - rCircle;
+            }
+            
             for (let i = 0; i < M; i++)
                 for (let j = 0; j < N; j++) 
                     if (Data[i][j].type == 1){
@@ -57,10 +65,6 @@ class ball{
                 if (XX == -1) {
                     XX = 0;
                     XXX = this.x;
-                    if (XXX <= rCircle)
-                        XXX = rCircle;
-                    if (XXX >= game_W - rCircle)
-                        XXX = game_W - rCircle;
                 }
                 console.log('XXX = ', XXX);
                 this.start = false;
