@@ -281,7 +281,7 @@ class game {
         this.drawArrayRectangle();
         this.context.fillStyle = this.setColor(Nball * 2);
         this.context.fillText(Nball, game_W - WidthRectangle, YYY + HeightRectangle / 4);
-        this.context.fillStyle = this.setColor(Math.floor(score / 20));
+        this.context.fillStyle = this.setColor(Math.floor(score / 50));
         this.context.fillText(score, WidthRectangle / 7, YYY + HeightRectangle / 4);
         this.context.fillStyle = "cyan"; 
         for (let i = 0; i < Nball; i++)
