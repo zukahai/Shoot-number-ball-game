@@ -16,23 +16,11 @@ class ball{
     }
 
     update() {
-        if (this.dy == 0)
-            this.dy = this.dx;
         if (this.start) {
             if (this.x + dx - rCircle < 0 || this.x + dx + rCircle > game_W)
                 this.dx = -this.dx;
             if (this.y + dy - rCircle < 0)
                 this.dy = -this.dy;
-                
-            if (this.y == YYY) {
-                if (this.x < rCircle)
-                    this.x = rCircle;
-                if (this.x > game_W - rCircle)
-                    this.x = game_W - rCircle;
-            }
-
-            if (this.y + rCircle < 0)
-                this.y = 3 * rCircle - this.dy;
             
             for (let i = 0; i < M; i++)
                 for (let j = 0; j < N; j++) 
@@ -71,10 +59,23 @@ class ball{
                     XX = 0;
                     XXX = this.x;
                 }
-                console.log('XXX = ', XXX);
+                // console.log('XXX = ', XXX);
                 this.start = false;
                 this.y = YYY;
             }
+
+            if (this.y >= YYY) {
+                if (this.x < rCircle)
+                    this.x = 1.5 * rCircle;
+                if (this.x > game_W - rCircle)
+                    this.x = game_W - 1.5 * rCircle;
+            }
+
+            if (this.y + rCircle < 0) {
+                console.log("Bug");
+                this.y = 3 * rCircle - this.dy;
+            }
+                
         } else if (this.end) {
             if (Math.abs(this.x - XXX) > game_W / 200) {
                 if (this.x < XXX)
