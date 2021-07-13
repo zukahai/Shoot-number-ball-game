@@ -75,6 +75,16 @@ class ball{
                 console.log("Bug");
                 this.y = 3 * rCircle - this.dy;
             }
+
+            if (this.x + rCircle < 0) {
+                console.log("Bug");
+                this.x = 3 * rCircle - this.dx;
+            }
+
+            if (this.x + rCircle > game_W) {
+                console.log("Bug");
+                this.x = game_W - 3 * rCircle - this.dx;
+            }
                 
         } else if (this.end) {
             if (Math.abs(this.x - XXX) > game_W / 200) {
