@@ -46,9 +46,15 @@ class ball{
                             NballTemp++;
                         }
                     }
-            
+
+            if (this.x + dx - rCircle < 0 || this.x + dx + rCircle > game_W)
+                this.dx = -this.dx;
+            if (this.y + dy - rCircle < 0)
+                this.dy = -this.dy;
+
             this.x += this.dx;
             this.y += this.dy;
+
             if (this.y + dy > YYY) {
                 if (XX == -1) {
                     XX = 0;
@@ -65,11 +71,6 @@ class ball{
                 if (this.x > game_W - rCircle)
                     this.x = game_W - 1.5 * rCircle;
             }
-
-            if (this.x + dx - rCircle < 0 || this.x + dx + rCircle > game_W)
-                this.dx = -this.dx;
-            if (this.y + dy - rCircle < 0)
-                this.dy = -this.dy;
 
             if (this.y + rCircle < 0) {
                 console.log("Bug");
