@@ -47,10 +47,13 @@ class ball{
                         }
                     }
 
-            if (this.x + dx - rCircle < 0 || this.x + dx + rCircle > game_W)
+            if (this.x + dx - rCircle < 0 && dx < 0 || this.x + dx + rCircle > game_W && dx > 0)
                 this.dx = -this.dx;
-            if (this.y + dy - rCircle < 0)
+            if (this.y + dy - rCircle < 0 && dy < 0) {
                 this.dy = -this.dy;
+                console.log('Doi');
+            }
+                
 
             this.x += this.dx;
             this.y += this.dy;
@@ -73,18 +76,21 @@ class ball{
             }
 
             if (this.y + rCircle < 0) {
-                console.log("Bug");
-                this.y = 3 * rCircle - this.dy;
+                console.log("Bug1");
+                this.y = rCircle;
+                this.dy = -this.dy;
             }
 
             if (this.x + rCircle < 0) {
-                console.log("Bug");
-                this.x = 3 * rCircle - this.dx;
+                // console.log("Bug2 " + this.x + " " + this.dx);
+                this.x = rCircle;
+                this.dx = -this.dx;
             }
 
             if (this.x + rCircle > game_W) {
-                console.log("Bug");
-                this.x = game_W - 3 * rCircle - this.dx;
+                // console.log("Bug3");
+                this.x = game_W - rCircle;
+                this.dx = -this.dx;
             }
                 
         } else if (this.end) {
