@@ -32,7 +32,7 @@ class ball{
             }
 
             if (this.y + rCircle < 0)
-                this.y = 3 * rCircle;
+                this.y = 3 * rCircle - this.dy;
             
             for (let i = 0; i < M; i++)
                 for (let j = 0; j < N; j++) 
