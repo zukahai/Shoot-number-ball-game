@@ -5,7 +5,7 @@ class ball{
         this.x = XXX;
         this.y = YYY;
         this.dx = 0;
-        this.dy = 0;
+        this.dy = 10;
         this.start = false;
         this.end = false;
         rCircle = this.game.getWidth() / 5;
