@@ -47,9 +47,9 @@ class ball{
                         }
                     }
 
-            if (this.x + dx - rCircle < 0 && dx < 0 || this.x + dx + rCircle > game_W && dx > 0)
+            if (this.x + dx - rCircle < 0 || this.x + dx + rCircle > game_W)
                 this.dx = -this.dx;
-            if (this.y + dy - rCircle < 0 && dy < 0) {
+            if (this.y + dy - rCircle < 0) {
                 this.dy = -this.dy;
                 console.log('Doi');
             }
@@ -82,13 +82,13 @@ class ball{
             }
 
             if (this.x + rCircle < 0) {
-                // console.log("Bug2 " + this.x + " " + this.dx);
+                console.log("Bug2 " + this.x + " " + this.dx);
                 this.x = rCircle;
                 this.dx = -this.dx;
             }
 
             if (this.x + rCircle > game_W) {
-                // console.log("Bug3");
+                console.log("Bug3");
                 this.x = game_W - rCircle;
                 this.dx = -this.dx;
             }
