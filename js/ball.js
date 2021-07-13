@@ -17,10 +17,11 @@ class ball{
 
     update() {
         if (this.start) {
+            // console.log(this.dx,' ', this.dy);
             for (let i = 0; i < M; i++)
                 for (let j = 0; j < N; j++) 
                     if (Data[i][j].type == 1){
-                        var k = this.checkRectangle(Data[i][j], dx, dy);
+                        var k = this.checkRectangle(Data[i][j], this.dx, this.dy);
                         for (let l = 0; l <= 1; l += 0.01) 
                             if (k == -1)
                                 k = this.checkRectangle(Data[i][j], l * this.dx / 100, l * this.dy / 100);
@@ -47,18 +48,15 @@ class ball{
                         }
                     }
 
-            if (this.x + dx - rCircle < 0 || this.x + dx + rCircle > game_W)
+            if (this.x + this.dx - rCircle < 0 || this.x + this.dx + rCircle > game_W)
                 this.dx = -this.dx;
-            if (this.y + dy - rCircle < 0) {
+            if (this.y + this.dy - rCircle < 0)
                 this.dy = -this.dy;
-                console.log('Doi');
-            }
-                
 
             this.x += this.dx;
             this.y += this.dy;
 
-            if (this.y + dy > YYY) {
+            if (this.y + this.dy > YYY) {
                 if (XX == -1) {
                     XX = 0;
                     XXX = this.x;
@@ -107,8 +105,8 @@ class ball{
     }
 
     checkRectangle(rtl, dx, dy) {
-        let X = this.x + dx;
-        let Y = this.y + dy;
+        let X = this.x + this.dx;
+        let Y = this.y + this.dy;
         if (!rtl.alive)
             return -1;
         if (X >= rtl.xx && X <= rtl.xx + WidthRectangle && Y >= rtl.yy && Y <= rtl.yy + HeightRectangle)  {
