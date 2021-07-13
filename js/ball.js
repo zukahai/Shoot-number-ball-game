@@ -16,10 +16,12 @@ class ball{
     }
 
     update() {
+        if (this.dy == 0)
+            this.dy = this.dx;
         if (this.start) {
-            if (this.x + dx - rCircle < 0 || this.x + dx + rCircle > game_W)
+            if (this.x + dx - rCircle <= 0 || this.x + dx + rCircle >= game_W)
                 this.dx = -this.dx;
-            if (this.y + dy - rCircle < 0)
+            if (this.y + dy - rCircle <= 0)
                 this.dy = -this.dy;
                 
             if (this.y == YYY) {
