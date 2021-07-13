@@ -17,11 +17,6 @@ class ball{
 
     update() {
         if (this.start) {
-            if (this.x + dx - rCircle < 0 || this.x + dx + rCircle > game_W)
-                this.dx = -this.dx;
-            if (this.y + dy - rCircle < 0)
-                this.dy = -this.dy;
-            
             for (let i = 0; i < M; i++)
                 for (let j = 0; j < N; j++) 
                     if (Data[i][j].type == 1){
@@ -70,6 +65,11 @@ class ball{
                 if (this.x > game_W - rCircle)
                     this.x = game_W - 1.5 * rCircle;
             }
+
+            if (this.x + dx - rCircle < 0 || this.x + dx + rCircle > game_W)
+                this.dx = -this.dx;
+            if (this.y + dy - rCircle < 0)
+                this.dy = -this.dy;
 
             if (this.y + rCircle < 0) {
                 console.log("Bug");
