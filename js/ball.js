@@ -17,7 +17,7 @@ class ball{
 
     update() {
         if (this.start) {
-            // console.log(this.dx,' ', this.dy);
+            this.checkBug();
             for (let i = 0; i < M; i++)
                 for (let j = 0; j < N; j++) 
                     if (Data[i][j].type == 1){
@@ -101,6 +101,22 @@ class ball{
                 this.x = XXX;
                 this.end = false;
             }
+        }
+    }
+
+    checkBug() {
+        let b = Math.floor(this.x / WidthRectangle);
+        let a = Math.floor(this.y / HeightRectangle);
+        let d = Math.floor((this.x + this.dx)/ WidthRectangle);
+        let c = Math.floor((this.y + this.dy)/ HeightRectangle);
+        if (Math.abs(a - c) + Math.abs(b - d) == 2 && Data[c][b].alive && Data[c][b].type == 1 && Data[a][d].alive && Data[a][d].type == 1) {
+            if (Data[c][b].value-- <= 0)
+                Data[c][b].alive = false;
+            if (Data[a][d].value-- <= 0)
+                Data[a][d].alive = false;
+            this.dx = -this.dx;
+            this.dy = -this.dy;
+            console.log("Fix bug");
         }
     }
 
