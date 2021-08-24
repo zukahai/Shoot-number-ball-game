@@ -39,13 +39,15 @@ class game {
         for (let i = 0; i < 2 * M; i++)
             Data[i] = [0, 0, 0, 0, 0, 0];
 
-        let xx = 0, yy = 0, color = 0;
+        let xx = 0,
+            yy = 0,
+            color = 0;
         for (let i = 0; i < 2 * M; i++) {
             yy = i * HeightRectangle;
             for (let j = 0; j < N; j++) {
                 color = Math.floor(Math.random() * 16777215 / 2 + 16777215 / 2).toString(16);
                 xx = j * WidthRectangle;
-                Data[i][j] = {xx, yy, color, alive : false, value: Math.floor(Math.random() * 3 + 1), type : 1};
+                Data[i][j] = { xx, yy, color, alive: false, value: Math.floor(Math.random() * 3 + 1), type: 1 };
             }
         }
 
@@ -62,9 +64,9 @@ class game {
         }
 
         this.b = [];
-        for (let i = 0; i < Nball; i++) 
+        for (let i = 0; i < Nball; i++)
             this.b[i] = new ball(this);
-        
+
         this.loop();
 
         this.listenMouse();
@@ -147,13 +149,13 @@ class game {
                     y = game_H - 1.5 * HeightRectangle;
                 }
             }
-            
+
             xEnd = x + 100 * (x - XXX), yEnd = x + 100 * (y - YYY);
             xtouch = x;
             yTouch = y;
         })
 
-        document.addEventListener("touchend", evt => {    
+        document.addEventListener("touchend", evt => {
             touchCheck = false;
             this.solve(xtouch, yTouch);
         })
@@ -162,11 +164,11 @@ class game {
     }
 
     loop() {
-        for (let  i = 0; i < x3; i++) {
+        for (let i = 0; i < x3; i++) {
             this.update();
             this.draw();
         }
-        
+
         setTimeout(() => this.loop(), 1);
     }
 
@@ -175,7 +177,7 @@ class game {
             x3 = 3;
             return;
         }
-            
+
         XX = -1;
         dx = x - XXX;
         if (dy == 0)
@@ -212,7 +214,7 @@ class game {
                 this.matrixDown();
                 x3 = 1;
             }
-                
+
             XX = -1;
             start = false;
             for (let i = Nball; i < NballTemp; i++)
@@ -222,9 +224,9 @@ class game {
     }
 
     matrixDown() {
-        let creat = true;
+        let create = true;
         turn++;
-        for (let j = 0; j < N; j++) 
+        for (let j = 0; j < N; j++)
             if (Data[M - 1][j].alive && Data[M - 1][j].type == 1) {
                 window.alert("You lose!" + "\n" + "Your score: " + score);
                 location.reload();
@@ -237,21 +239,21 @@ class game {
                 Data[i][j].value = Data[i - 1][j].value;
                 Data[i][j].type = Data[i - 1][j].type;
             }
-            
+
         for (let j = 0; j < N; j++) {
-            let color = Math.floor(Math.random()*16777215 / 2 + 16777215 / 2).toString(16);
+            let color = Math.floor(Math.random() * 16777215 / 2 + 16777215 / 2).toString(16);
             let xx = j * WidthRectangle;
-            Data[0][j] = {xx, yy: 0, color, alive : false, value: Math.floor(Math.random() * 2 * turn / 3 + turn / 2.5 + 1)};
+            Data[0][j] = { xx, yy: 0, color, alive: false, value: Math.floor(Math.random() * 2 * turn / 3 + turn / 2.5 + 1) };
             if (Math.random() < 0.3) {
-                creat = false;
+                create = false;
                 Data[0][j].alive = true;
                 Data[0][j].type = 1;
-            } else if (Math.random() < 0.11) {
-                creat = false;
+            } else if (Math.random() < 0.05) {
+                create = false;
                 Data[0][j].alive = true;
                 Data[0][j].type = 2;
             }
-            if (creat) {
+            if (create) {
                 let Jindex = Math.floor(Math.random() * 100000) % N;
                 Data[0][Jindex].alive = true;
                 Data[0][Jindex].type = 1;
@@ -293,14 +295,14 @@ class game {
         this.context.fillText(Nball, game_W - WidthRectangle, YYY + HeightRectangle / 4);
         this.context.fillStyle = this.setColor(Math.floor(score / 100));
         this.context.fillText(score, WidthRectangle / 7, YYY + HeightRectangle / 4);
-        this.context.fillStyle = "cyan"; 
+        this.context.fillStyle = "cyan";
         for (let i = 0; i < Nball; i++)
             this.b[i].draw();
     }
 
     drawLine(x1, y1, x2, y2) {
         this.context.beginPath();
-        this.context.strokeStyle  = "red";
+        this.context.strokeStyle = "red";
         this.context.lineWidth = WidthRectangle / 20;
         this.context.moveTo(x1, y1);
         this.context.lineTo(x2, y2);
@@ -310,7 +312,7 @@ class game {
     clearScreen() {
         this.context.clearRect(0, 0, game_W, game_H);
         this.context.fillStyle = '#000000';
-        this.context.fillRect(0 , 0, game_W, game_H); 
+        this.context.fillRect(0, 0, game_W, game_H);
     }
 
     drawArrayRectangle() {
@@ -321,9 +323,9 @@ class game {
                     if (Data[i][j].type == 1) {
                         Data[i][j].color = this.setColor(Data[i][j].value);
                         this.context.fillStyle = Data[i][j].color;
-                        this.context.fillRect(Data[i][j].xx , Data[i][j].yy, WidthRectangle, HeightRectangle);
+                        this.context.fillRect(Data[i][j].xx, Data[i][j].yy, WidthRectangle, HeightRectangle);
                         this.context.fillStyle = "#ffffff";
-                        this.context.fillText(Data[i][j].value, Data[i][j].xx + this.margin(Data[i][j].value) , Data[i][j].yy + 0.75 * HeightRectangle);
+                        this.context.fillText(Data[i][j].value, Data[i][j].xx + this.margin(Data[i][j].value), Data[i][j].yy + 0.75 * HeightRectangle);
                     } else if (Data[i][j].type == 2) {
                         this.context.beginPath();
                         this.context.fillStyle = '#00FF00';
@@ -343,7 +345,7 @@ class game {
                 return ccc[i];
             c += c2++;
         }
-        return  ccc[ccc.length - 1];
+        return ccc[ccc.length - 1];
     }
 
     margin(number) {
